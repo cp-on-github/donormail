@@ -1,0 +1,16 @@
+Anytown Charity,,,,,,,,,
+Sales by Donor Detail,,,,,,,,,
+"January 1 - December 31, 2025",,,,,,,,,
+
+,Date,Donor,Class,Amount,Product/Service,Sales Price,Memo/Description,Num,Transaction Type
+,01/15/2025,Jane Doe,EDUCATION,100.00  ,Donations:General,,,SR-1001,Receipt
+,02/15/2025,Jane Doe,EVENTS,75.00  ,Events:T-Shirt,25.00,,SR-1002,Receipt
+,02/15/2025,Jane Doe,EVENTS,25.00  ,Events:Raffle Tickets,5.00,,SR-1002,Receipt
+,02/15/2025,,EVENTS,10.00  ,Events:Raffle Tickets,5.00,,SR-1003,Receipt
+,06/01/2025,NO RECEIPT Workplace Giving:Jane Doe,EDUCATION,500.00  ,Donations:General,,,SR-1004,Receipt
+,07/01/2025,NO RECEIPT Family Donor Fund:Sam Lee,EDUCATION,"1,000.00  ",Donations:General,,,SR-1005,Receipt
+,08/01/2025,Pat Kim,HOUSING (deleted),50.00  ,Donations:General,,,INV-2001,Pledge
+,10/01/2025,"NO RECEIPT Community Foundation, Inc.",EDUCATION,"2,000.00  ",Donations:General,,,SR-1007,Receipt
+,09/01/2025,Acme Corp,EDUCATION,250.00  ,In-Kind:Supplies,,Two laptops,SR-1006,Receipt
+
+TOTAL,,,,"$ 4,010.00  ",,,,,

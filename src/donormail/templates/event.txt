@@ -1,0 +1,27 @@
+Dear {{ statement.salutation }},
+
+Thank you for your support of {{ org.name }}!
+
+Below is a summary of your {{ letter.label }} payments{% if statement.benefits %} and the estimated value of what you received{% endif %}. Please retain this email for your tax records.
+
+{% for gift in statement.gifts if gift.kind != "third-party" %}
+{{ gift.date | shortdate }}  {{ [gift.program, gift.item] | select | join(": ") }}
+    Paid:            ${{ gift.amount | money }}
+    Value received:  ${{ gift.value | money }}
+    Deductible:      ${{ gift.deductible | money }}
+{% endfor %}
+
+Total deductible: ${{ statement.deductible | money }}
+
+{% if statement.benefits %}
+The amount of a contribution that is deductible for federal income tax purposes is limited to the excess of the amount paid over the value of goods or services provided by {{ org.name }}. Values shown are good-faith estimates by {{ org.name }}.
+{% else %}
+No goods or services were provided in exchange for your contribution.
+{% endif %}
+
+{{ org.name }} is a tax-exempt organization under Section 501(c)(3) of the Internal Revenue Code{% if org.ein %} (EIN {{ org.ein }}){% endif %}.
+
+With gratitude,
+
+{{ org.signer.name }}
+{{ org.signer.title }}, {{ org.name }}

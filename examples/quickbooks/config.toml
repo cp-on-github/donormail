@@ -1,0 +1,88 @@
+# Example for QuickBooks Online "Sales by Donor Detail" and "Donor Contact List"
+# exports. All names and data are fictional.
+output = "output"
+
+[org]
+name = "Anytown Charity"
+ein = "XX-XXXXXXX"
+address = "PO Box 123456, Anytown, TX 12345"
+email = "info@anytowncharity.org"
+website = "www.anytowncharity.org"
+logo = "logo.png"
+signer = { name = "I. M. Treasurer", title = "Treasurer" }
+
+[contacts]
+file = "contacts.csv"
+
+[contacts.columns]
+name = "Donor full name"
+salutation = "Salutation"
+email = "Email"
+street = "Bill street"
+city = "Bill city"
+state = "Bill state"
+zip = "Bill zip"
+
+[gifts]
+file = "gifts.csv"
+
+[gifts.columns]
+date = "Date"
+name = "Donor"
+amount = "Amount"
+program = "Class"
+product = "Product/Service"
+price = "Sales Price"
+description = "Memo/Description"
+
+# rename classes by their full name, after removing the " (deleted)" that
+# QuickBooks adds to deleted names
+[programs]
+EDUCATION = "Education"
+EVENTS = "Events"
+HOUSING = "Housing"
+
+[aliases]
+"Pat Kim" = "ANONYMOUS Pat Kim"
+
+# parent donors named "NO RECEIPT <fund>" hold gifts made through a third
+# party, e.g. "NO RECEIPT Workplace Giving:Jane Doe"
+[third_party]
+markers = ["NO RECEIPT"]
+
+# value received per unit
+[[rules]]
+product = "Events:T-Shirt"
+value = 15
+
+# raffle tickets are all value received, nothing deductible
+[[rules]]
+product = "Events:Raffle*"
+value = "amount"
+
+[[rules]]
+product = "In-Kind:*"
+kind = "in-kind"
+
+[letters.annual]
+year = 2025
+
+# only event purchases, from the same export as the annual letter
+[letters.welcome]
+start = 2025-02-15
+end = 2025-02-15
+products = ["Events:*"]
+label = "Welcome Home"
+subject = "Thank you for attending {{ letter.label }}"
+email_html = "event.html"
+email_text = "event.txt"
+attach = false
+
+[email]
+name = "I. M. Treasurer"
+address = "treasurer@anytowncharity.org"
+
+[smtp]
+host = "localhost"
+port = 8025
+security = "none"

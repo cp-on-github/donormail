@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css">
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            .page {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 32px;
+                background-color: #ffffff;
+                font-family: Helvetica, Arial, sans-serif;
+                font-size: 15px;
+                line-height: 1.5;
+                color: #222222;
+            }
+            .logo {
+                text-align: center;
+                padding-bottom: 16px;
+                border-bottom: 1px solid #dddddd;
+                margin-bottom: 24px;
+            }
+            .logo img {
+                width: 200px;
+                height: auto;
+            }
+            h1 {
+                font-size: 20px;
+                font-weight: bold;
+                margin: 0 0 16px 0;
+            }
+            .footer {
+                margin-top: 32px;
+                padding-top: 12px;
+                border-top: 1px solid #dddddd;
+                font-size: 12px;
+                color: #777777;
+                text-align: center;
+            }
+            .footer a {
+                color: #777777;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page">
+            {% if org.logo %}
+            <div class="logo"><img src="cid:logo" alt="{{ org.name }}"></div>
+            {% endif %}
+            <h1>Thank you for your generous support of {{ org.name }}!</h1>
+            <p>Dear {{ statement.salutation }},</p>
+            {% if letter.attach %}
+            {% if statement.cash or statement.benefits %}
+            <p>Your {{ letter.label }} tax-deductible contributions total <b>${{ statement.deductible | money }}</b>. Your acknowledgement letter is attached. Please keep it for your tax records.</p>
+            {% elif statement.has_receipt %}
+            <p>An acknowledgement of your {{ letter.label }} contributions is attached. Please keep it for your tax records.</p>
+            {% else %}
+            <p>Your gifts through {{ statement.funds | series }} are listed in the attached letter for your records.</p>
+            {% endif %}
+            {% endif %}
+            <p>Your continued support is greatly appreciated.</p>
+            <p>Sincerely,</p>
+            <p>
+            {{ org.signer.name }}<br>
+            {{ org.signer.title }}, {{ org.name }}
+            </p>
+
+            <div class="footer">
+            {{ [org.address, org.email, org.website] | select | join("&nbsp;&nbsp;|&nbsp;&nbsp;" | safe) }}
+            </div>
+        </div>
+    </body>
+</html>

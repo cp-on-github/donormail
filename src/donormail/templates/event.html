@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css">
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            .page {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 32px;
+                background-color: #ffffff;
+                font-family: Helvetica, Arial, sans-serif;
+                font-size: 15px;
+                line-height: 1.5;
+                color: #222222;
+            }
+            .logo {
+                text-align: center;
+                padding-bottom: 16px;
+                border-bottom: 1px solid #dddddd;
+                margin-bottom: 24px;
+            }
+            .logo img {
+                width: 200px;
+                height: auto;
+            }
+            h1 {
+                font-size: 20px;
+                font-weight: bold;
+                margin: 0 0 16px 0;
+            }
+            table.gifts {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 8px 0 20px 0;
+                font-size: 14px;
+            }
+            table.gifts th {
+                text-align: left;
+                font-weight: bold;
+                color: #555555;
+                border-bottom: 2px solid #cccccc;
+                padding: 6px 8px;
+            }
+            table.gifts td {
+                border-bottom: 1px solid #eeeeee;
+                padding: 6px 8px;
+                vertical-align: top;
+            }
+            table.gifts .amount {
+                text-align: right;
+                white-space: nowrap;
+            }
+            table.gifts tr.total td {
+                font-weight: bold;
+                border-top: 2px solid #cccccc;
+                border-bottom: none;
+            }
+            .note {
+                font-size: 13px;
+                color: #555555;
+            }
+            .footer {
+                margin-top: 32px;
+                padding-top: 12px;
+                border-top: 1px solid #dddddd;
+                font-size: 12px;
+                color: #777777;
+                text-align: center;
+            }
+            .footer a {
+                color: #777777;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page">
+            {% if org.logo %}
+            <div class="logo"><img src="cid:logo" alt="{{ org.name }}"></div>
+            {% endif %}
+            <h1>Thank you for your support of {{ org.name }}!</h1>
+            <p>Dear {{ statement.salutation }},</p>
+            <p>Below is a summary of your {{ letter.label }} payments{% if statement.benefits %} and the estimated value of what you received{% endif %}. Please retain this email for your tax records.</p>
+
+            <table class="gifts">
+                <tr>
+                    <th>Date</th>
+                    <th>Item</th>
+                    <th class="amount">Paid</th>
+                    <th class="amount">Value received</th>
+                    <th class="amount">Deductible</th>
+                </tr>
+                {% for gift in statement.gifts if gift.kind != "third-party" %}
+                <tr>
+                    <td>{{ gift.date | shortdate }}</td>
+                    <td>{{ [gift.program, gift.item] | select | join(": ") }}</td>
+                    <td class="amount">${{ gift.amount | money }}</td>
+                    <td class="amount">${{ gift.value | money }}</td>
+                    <td class="amount">${{ gift.deductible | money }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="total">
+                    <td colspan="2">Total</td>
+                    <td class="amount">${{ (statement.total - statement.third_party_total) | money }}</td>
+                    <td class="amount">${{ statement.value | money }}</td>
+                    <td class="amount">${{ statement.deductible | money }}</td>
+                </tr>
+            </table>
+
+            {% if statement.benefits %}
+            <p class="note">The amount of a contribution that is deductible for federal income tax purposes is limited to the excess of the amount paid over the value of goods or services provided by {{ org.name }}. Values shown are good-faith estimates by {{ org.name }}.</p>
+            {% else %}
+            <p class="note">No goods or services were provided in exchange for your contribution.</p>
+            {% endif %}
+            <p class="note">{{ org.name }} is a tax-exempt organization under Section 501(c)(3) of the Internal Revenue Code{% if org.ein %} (EIN {{ org.ein }}){% endif %}.</p>
+
+            <p>With gratitude,</p>
+            <p>
+            {{ org.signer.name }}<br>
+            {{ org.signer.title }}, {{ org.name }}
+            </p>
+
+            <div class="footer">
+            {{ [org.address, org.email, org.website] | select | join("&nbsp;&nbsp;|&nbsp;&nbsp;" | safe) }}
+            </div>
+        </div>
+    </body>
+</html>

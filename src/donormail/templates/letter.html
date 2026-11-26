@@ -1,0 +1,243 @@
+{% macro header() %}
+{% if org.logo %}
+<p class="logo"><img src="{{ org.logo }}"></p>
+{% endif %}
+<p>{{ today | longdate }}</p>
+{% if statement.has_address %}
+<p>
+{{ statement.name }}<br>
+{{ statement.contact.street }}<br>
+{{ statement.contact.city }}, {{ statement.contact.state }} {{ statement.contact.zip }}
+</p>
+{% endif %}
+<br>
+{% endmacro %}
+
+{% macro signature() %}
+<p>With gratitude,</p>
+<p>
+{{ org.signer.name }}<br>
+{{ org.signer.title }}, {{ org.name }}
+</p>
+{% endmacro %}
+
+{% macro footer() %}
+<hr width="80%">
+<p class="footer">
+{{ [org.address, org.email, org.website] | select | join("&nbsp;&nbsp;|&nbsp;&nbsp;" | safe) }}
+</p>
+{% endmacro %}
+
+{% macro third_party_table() %}
+<table repeat="1">
+    <tr>
+        <th width="15%">Date</th>
+        <th width="70%">Through</th>
+        <th width="15%" class="amount">Amount</th>
+    </tr>
+    {% for row in statement.third_party_rows %}
+    <tr class="{{ loop.cycle('', 'alt') }}">
+        <td>{{ row.date | shortdate }}</td>
+        <td>{{ row.fund }}</td>
+        <td class="amount">${{ row.amount | money }}</td>
+    </tr>
+    {% endfor %}
+    <tr class="total">
+        <td colspan="2">Total</td>
+        <td class="amount">${{ statement.third_party_total | money }}</td>
+    </tr>
+</table>
+{% endmacro %}
+
+<html>
+    <head>
+        <style type="text/css">
+            body {
+                font-family: sans-serif;
+                font-size: 10pt;
+                text-align: left;
+            }
+            h2 {
+                font-size: 13pt;
+                margin-top: 0;
+                margin-bottom: 6pt;
+            }
+            h3 {
+                font-size: 11pt;
+                margin-top: 28pt;
+                margin-bottom: 6pt;
+            }
+            table {
+                font-size: 10pt;
+                padding: 1px;
+                width: 100%;
+            }
+            th {
+                text-align: left;
+                padding: 2px 4px;
+                border-bottom: 1px solid #999999;
+            }
+            td {
+                vertical-align: bottom;
+                padding: 2px 4px;
+            }
+            tr.alt td {
+                background-color: #f2f2f2;
+            }
+            .amount {
+                text-align: right;
+            }
+            .total td {
+                font-weight: bold;
+                border-top: 1px solid #999999;
+            }
+            table.summary td {
+                background-color: #f2f2f2;
+                font-size: 11pt;
+                padding: 8px 10px 5px 10px;
+                vertical-align: middle;
+            }
+            p.note {
+                font-size: 9pt;
+                margin-top: 6pt;
+            }
+            p.logo {
+                text-align: right;
+            }
+            p.footer {
+                font-size: 8pt;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        {% if statement.has_receipt %}
+        {{ header() }}
+        <p>Dear {{ statement.salutation }},</p>
+        <p>Thank you for your generous support of {{ org.name }} in {{ letter.label }}.{% if statement.programs %} Your gifts supported {{ statement.programs | series }}.{% endif %} This letter acknowledges your contributions for your tax records.</p>
+
+        {% if statement.cash or statement.benefits %}
+        <table class="summary">
+            <tr>
+                <td width="75%"><b>Your tax-deductible contributions in {{ letter.label }}</b></td>
+                <td width="25%" class="amount"><b>${{ statement.deductible | money }}</b></td>
+            </tr>
+        </table>
+        {% if statement.benefits %}
+        <p>This is the ${{ statement.contributed | money }} you contributed, less ${{ statement.nondeductible | money }} that is not deductible because of goods or services you received in return, which are listed on the next page. No other goods or services were provided in exchange for your contributions.</p>
+        {% else %}
+        <p>No goods or services were provided in exchange for your contributions.</p>
+        {% endif %}
+        {% endif %}
+        {% if statement.in_kind %}
+        <p>We {% if statement.cash or statement.benefits %}also {% endif %}gratefully received the non-cash {{ "gift" if statement.in_kind | length == 1 else "gifts" }} described on the next page. {{ org.name }} does not assign a value to non-cash gifts{% if not (statement.cash or statement.benefits) %}, and no goods or services were provided in exchange for them{% endif %}.</p>
+        {% endif %}
+        {% if statement.third_party %}
+        <p>Gifts you made through {{ statement.funds | series }}, totaling ${{ statement.third_party_total | money }}, are not included in your tax-deductible contributions. They are listed on the last page for your records, and the organization you gave through provides your tax receipt for them.</p>
+        {% endif %}
+
+        <p>{{ org.name }} is a tax-exempt organization under Section 501(c)(3) of the Internal Revenue Code{% if org.ein %} (EIN {{ org.ein }}){% endif %}. Please retain this letter for your tax records.</p>
+        {{ signature() }}
+        {{ footer() }}
+
+        <pdf:nextpage />
+        <h2>Contribution details for {{ statement.name }}, {{ letter.label }}</h2>
+
+        {% if statement.cash %}
+        <h3>Contributions</h3>
+        {% set has_programs = statement.rows | map(attribute="programs") | select | list %}
+        <table repeat="1">
+            <tr>
+                {% if has_programs %}
+                <th width="15%">Date</th>
+                <th width="70%">Program</th>
+                {% else %}
+                <th width="85%">Date</th>
+                {% endif %}
+                <th width="15%" class="amount">Amount</th>
+            </tr>
+            {% for row in statement.rows %}
+            <tr class="{{ loop.cycle('', 'alt') }}">
+                <td>{{ row.date | shortdate }}</td>
+                {% if has_programs %}
+                <td>{{ row.programs | join(", ") or "&nbsp;" | safe }}</td>
+                {% endif %}
+                <td class="amount">${{ row.amount | money }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total">
+                <td{% if has_programs %} colspan="2"{% endif %}>Total</td>
+                <td class="amount">${{ statement.cash_total | money }}</td>
+            </tr>
+        </table>
+        <p class="note">No goods or services were provided in exchange for these contributions.</p>
+        {% endif %}
+
+        {% if statement.benefits %}
+        <h3>Contributions with goods or services received</h3>
+        {% set has_benefit_programs = statement.benefits | map(attribute="program") | select | list %}
+        <table repeat="1">
+            <tr>
+                <th width="12%">Date</th>
+                {% if has_benefit_programs %}
+                <th width="18%">Program</th>
+                <th width="22%">Item</th>
+                {% else %}
+                <th width="40%">Item</th>
+                {% endif %}
+                <th width="14%" class="amount">Paid</th>
+                <th width="18%" class="amount">Value received</th>
+                <th width="16%" class="amount">Deductible</th>
+            </tr>
+            {% for gift in statement.benefits %}
+            <tr class="{{ loop.cycle('', 'alt') }}">
+                <td>{{ gift.date | shortdate }}</td>
+                {% if has_benefit_programs %}
+                <td>{{ gift.program or "&nbsp;" | safe }}</td>
+                {% endif %}
+                <td>{{ gift.item or "&nbsp;" | safe }}</td>
+                <td class="amount">${{ gift.amount | money }}</td>
+                <td class="amount">${{ gift.value | money }}</td>
+                <td class="amount">${{ gift.deductible | money }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p class="note">The amount of a contribution that is deductible for federal income tax purposes is limited to the excess of the amount paid over the value of goods or services provided by {{ org.name }}. Values shown are good-faith estimates by {{ org.name }}.</p>
+        {% endif %}
+
+        {% if statement.in_kind %}
+        <h3>Non-cash contributions</h3>
+        <table repeat="1">
+            <tr>
+                <th width="15%">Date</th>
+                <th width="85%">Item</th>
+            </tr>
+            {% for gift in statement.in_kind %}
+            <tr class="{{ loop.cycle('', 'alt') }}">
+                <td>{{ gift.date | shortdate }}</td>
+                <td>{{ gift.item or "&nbsp;" | safe }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p class="note">No goods or services were provided in exchange for these contributions. {{ org.name }} does not assign a value to non-cash contributions.</p>
+        {% endif %}
+        {% endif %}
+
+        {% if statement.third_party %}
+        {% if statement.has_receipt %}
+        <pdf:nextpage />
+        <h3>Gifts through third parties (not a tax receipt)</h3>
+        <p>Thank you for directing these gifts to {{ org.name }} in {{ letter.label }}. They were made through the organizations listed below, which provide any tax receipt. They are listed here for your records only and are not tax-deductible contributions by you to {{ org.name }}.</p>
+        {{ third_party_table() }}
+        {% else %}
+        {{ header() }}
+        <p>Dear {{ statement.salutation }},</p>
+        <p>Thank you for your generous support of {{ org.name }} in {{ letter.label }}. Your gifts through {{ statement.funds | series }}, totaling ${{ statement.third_party_total | money }}, are listed below for your records. {{ statement.funds | series }} {{ "provides" if statement.funds | length == 1 else "provide" }} your tax receipt for them, so this letter is not a tax receipt.</p>
+        {{ third_party_table() }}
+        <p>{{ org.name }} is a tax-exempt organization under Section 501(c)(3) of the Internal Revenue Code{% if org.ein %} (EIN {{ org.ein }}){% endif %}.</p>
+        {{ signature() }}
+        {{ footer() }}
+        {% endif %}
+        {% endif %}
+    </body>
+</html>

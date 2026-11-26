@@ -1,0 +1,20 @@
+Dear {{ statement.salutation }},
+
+Thank you for your generous support of {{ org.name }}!
+
+{% if letter.attach %}
+{% if statement.cash or statement.benefits %}
+Your {{ letter.label }} tax-deductible contributions total ${{ statement.deductible | money }}. Your acknowledgement letter is attached. Please keep it for your tax records.
+{% elif statement.has_receipt %}
+An acknowledgement of your {{ letter.label }} contributions is attached. Please keep it for your tax records.
+{% else %}
+Your gifts through {{ statement.funds | series }} are listed in the attached letter for your records.
+{% endif %}
+
+{% endif %}
+Your continued support is greatly appreciated.
+
+Sincerely,
+
+{{ org.signer.name }}
+{{ org.signer.title }}, {{ org.name }}

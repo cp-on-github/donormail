@@ -1,0 +1,13 @@
+Date,ID,Donor,Method,Amount,Project,Item,Value,Description
+1/1/2025,1,John Appleseed,Check,25,Education Supplies,,,
+1/1/2025,2,John Appleseed,Check,25,Housing,,,
+2/1/2025,3,John Appleseed,Check,25,Education Books,,,
+3/1/2025,4,John Appleseed,Check,25,Housing Repairs,,,
+7/1/2025,10,John Smith,Credit Card,100,Education,,,
+9/1/2025,100,Jane Smith,Cash,200,Food,,,
+
+10/15/2025,11,John Appleseed,Check,50,Education,,,
+3/1/2025,12,Mary Major,Check,300,Food,,,
+5/1/2025,14,John Doe,Check,75,Housing,,,
+10/18/2025,15,John Doe,Check,150,Housing,Weekend cabin stay,100,
+11/20/2025,16,Main Street Grocery,,0,Food,In-Kind,,"Ten cases of canned food"

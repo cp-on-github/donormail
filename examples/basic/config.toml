@@ -1,0 +1,66 @@
+# Minimal example with a plain contacts list and gifts list.
+# Paths are relative to this file. Try: donormail check config.toml
+output = "output"
+
+[org]
+name = "Anytown Charity"
+ein = "XX-XXXXXXX"
+address = "PO Box 123456, Anytown, TX 12345"
+email = "info@anytowncharity.org"
+website = "www.anytowncharity.org"
+logo = "logo.png"
+signer = { name = "I. M. Treasurer", title = "Treasurer" }
+
+[contacts]
+file = "contacts.csv"
+
+# map fields to the column headers in contacts.csv
+[contacts.columns]
+name = "Donor"
+email = "Email"
+street = "Address"
+city = "City"
+state = "State"
+zip = "Zip"
+
+[gifts]
+file = "gifts.csv"
+
+[gifts.columns]
+date = "Date"
+name = "Donor"
+amount = "Amount"
+program = "Project"
+product = "Item"
+value = "Value"
+description = "Description"
+
+# rename program values for display
+[programs]
+"Education Supplies" = "Education"
+"Education Books" = "Education"
+"Housing Repairs" = "Housing"
+
+# Item is what the donor received, such as an auction item, and Value is
+# its fair market value. For a non-cash gift, enter "In-Kind" as the Item,
+# describe the gift in Description, enter 0 as the Amount, and leave Value
+# blank.
+[[rules]]
+product = "In-Kind"
+kind = "in-kind"
+
+# one letter per year, and its name is also the output folder name
+[letters.annual]
+year = 2025
+
+[email]
+name = "I. M. Treasurer"
+address = "treasurer@anytowncharity.org"
+
+# for testing, run a local debug server that prints instead of delivering:
+#   python -m pip install aiosmtpd && python -m aiosmtpd -n -l localhost:8025
+[smtp]
+host = "localhost"
+port = 8025
+security = "none"
+limit = 50

@@ -1,0 +1,50 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project]
+name = "donormail"
+description = "Donation acknowledgement letters and emails for nonprofit organizations."
+version = "0.1.0"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE.txt"]
+keywords = ["nonprofit", "donations", "acknowledgement", "receipts", "quickbooks"]
+dependencies = [
+    "click>=8.1",
+    "jinja2>=3.1",
+    "openpyxl>=3.1",
+    "pypdf>=4",
+    "xhtml2pdf>=0.2.16",
+]
+readme = { file = "README.md", content-type = "text/markdown" }
+authors = [{ name = "cp-on-github" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Accounting",
+]
+
+[project.urls]
+Homepage = "https://github.com/cp-on-github/donormail"
+Issues = "https://github.com/cp-on-github/donormail/issues"
+Changelog = "https://github.com/cp-on-github/donormail/blob/main/CHANGELOG.md"
+
+[project.scripts]
+donormail = "donormail.cli:donormail"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff==0.17.6", "pyright==1.1.414"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
