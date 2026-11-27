@@ -1,27 +1,27 @@
 # donormail
 
-Donation acknowledgement letters and emails for nonprofit organizations.
+Donation acknowledgement letters and emails for nonprofits.
 
-donormail reads donor contacts and gifts from CSV or Excel files, such as QuickBooks Online reports, and writes an acknowledgement for each donor: an email with a PDF letter attached, or a PDF to print and mail. You review everything before anything is sent.
+It reads contacts and gifts from CSV or Excel files, including QuickBooks Online reports. For each donor, it writes an email with a PDF letter, or a PDF to print and mail. Nothing is sent until you run `donormail send`.
 
-- Year-end tax letters and event acknowledgements from the same data
-- IRS-required wording for cash gifts, gifts with goods or services received, non-cash gifts, and gifts through donor-advised funds
-- A `check` command that finds missing contacts, unreachable donors, and names to clean up
-- Safe to rerun: emails already sent are not sent again
-- Wording you can change without touching code
-- Your data stays on your computer
+- Year-end letters and event acknowledgements from the same data
+- Wording for cash, goods received, non-cash, and third-party gifts
+- `check` finds missing contacts, unreachable donors, and names to fix
+- Emails already sent are not sent again
+- Wording can be changed without touching code
+- Runs on your computer, with no online account or service
 
-> donormail helps prepare acknowledgements but is not tax or legal advice. Review the default wording with your accountant before relying on it.
+> The default wording is written for 501(c)(3) organizations and is not tax or legal advice. Review it with your accountant before you use it.
 
 ## Install
 
-donormail needs Python 3.11 or later.
+Requires Python 3.11 or later.
 
 ```sh
-pipx install git+https://github.com/cp-on-github/donormail
+uv tool install git+https://github.com/cp-on-github/donormail
 ```
 
-Or use `uv tool install` with the same address. See [Getting started](docs/getting-started.md) for more ways to install.
+[Getting started](docs/getting-started.md) has other ways to install.
 
 ## Quick start
 
@@ -43,8 +43,10 @@ donormail make config.toml    # write letters and emails to output/annual
 - [Templates](docs/templates.md)
 - [Development](docs/development.md)
 
-Changes are listed in [CHANGELOG.md](CHANGELOG.md).
+Changes are in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
 [MIT](LICENSE.txt)
+
+QuickBooks is a trademark of Intuit Inc., and donormail is not affiliated with Intuit.

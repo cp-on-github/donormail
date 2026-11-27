@@ -1,6 +1,6 @@
 Donor,Email,Address,City,State,Zip,Country
-John Appleseed,bogus@email.com,123 First St.,Anytown,TX,12345,
+John Appleseed,john.appleseed@example.com,123 First St.,Anytown,TX,12345,
 John Doe,,456 Main St.,Anytown,NY,67890,
-John Smith,bounce@email.com,,,,,
+John Smith,john.smith@example.com,,,,,
 Jane Smith,,,,,,
 Main Street Grocery,,789 Main St.,Anytown,TX,12345,

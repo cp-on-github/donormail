@@ -14,8 +14,8 @@ templates = "templates"    # optional folder of your own templates
 name = "Anytown Charity"                    # required
 ein = "XX-XXXXXXX"
 address = "PO Box 123456, Anytown, TX 12345"
-email = "info@anytowncharity.org"
-website = "www.anytowncharity.org"
+email = "info@example.org"
+website = "www.example.org"
 logo = "logo.png"                           # shown on PDF letters and inside HTML emails
 signer = { name = "I. M. Treasurer", title = "Treasurer" }
 ```
@@ -70,7 +70,7 @@ value = "Value"           # value received, for spreadsheets that track it
 
 ## `[third_party]`
 
-Gifts through a donor-advised fund, workplace giving platform, or bank are thanked but not receipted. donormail finds them by name, using the `Parent:Child` form of QuickBooks sub-donors. The donor is the last part of the name.
+Gifts through a donor-advised fund, workplace giving platform, or bank are thanked but not receipted. They are recognized by name, using the `Parent:Child` form of QuickBooks sub-donors. The donor is the last part of the name.
 
 ```toml
 [third_party]
@@ -150,7 +150,7 @@ attach = false                       # attach the PDF to emails
 ```toml
 [email]
 name = "I. M. Treasurer"
-address = "treasurer@anytowncharity.org"   # required
+address = "treasurer@example.org"          # required
 reply_to = ""
 bcc = ""                                   # e.g. an archive address
 
@@ -158,7 +158,7 @@ bcc = ""                                   # e.g. an archive address
 host = "smtp.example.org"
 port = 465                                 # default 465 for ssl, otherwise 25 (starttls usually uses 587)
 security = "ssl"                           # ssl, starttls, or none
-user = "treasurer@anytowncharity.org"      # log in when set
+user = "treasurer@example.org"             # log in when set
 limit = 50                                 # most emails sent per run
 ```
 

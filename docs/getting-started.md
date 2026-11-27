@@ -2,16 +2,18 @@
 
 ## Install
 
-donormail needs Python 3.11 or later.
+Requires Python 3.11 or later.
 
-```sh
-pipx install git+https://github.com/cp-on-github/donormail
-```
-
-Or with [uv](https://docs.astral.sh/uv/):
+With [uv](https://docs.astral.sh/uv/):
 
 ```sh
 uv tool install git+https://github.com/cp-on-github/donormail
+```
+
+Or with [pipx](https://pipx.pypa.io/):
+
+```sh
+pipx install git+https://github.com/cp-on-github/donormail
 ```
 
 Or, in a virtual environment:
@@ -45,6 +47,8 @@ There are two examples:
 - `examples/quickbooks`: QuickBooks Online reports with product rules, third-party gifts, aliases, salutations, and an event letter.
 
 ## Set up your own
+
+Keep your files outside the donormail folder you cloned, so donor information never ends up in a git commit.
 
 1. Copy the example closest to your data, such as `examples/quickbooks`.
 2. Replace its contacts and gifts files with your own. For QuickBooks, see [QuickBooks Online](quickbooks.md) for which reports to export.

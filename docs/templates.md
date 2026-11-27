@@ -13,9 +13,11 @@ To change the wording:
 1. Add `templates = "templates"` to your configuration and create that folder next to it.
 2. Copy a template into the folder and edit it. Your copy is used instead of the built-in one.
 
+The default wording is for 501(c)(3) organizations. Every letter and event email states 501(c)(3) status and treats gifts as tax-deductible. Change the wording if that isn't true for your organization.
+
 Templates use [Jinja2](https://jinja.palletsprojects.com/templating/).
 
-To show the logo in an HTML email, use `<img src="cid:logo">`. donormail puts the `[org]` logo file inside the email, so it shows even when the mail app blocks remote images.
+To show the logo in an HTML email, use `<img src="cid:logo">`. The `[org]` logo file goes inside the email, so it shows even when the mail app blocks remote images.
 
 `check` tries every template for every donor. A misspelled value is an error that names the template and line, and `make` writes nothing until it is fixed.
 
