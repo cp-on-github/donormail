@@ -6,8 +6,8 @@ output = "output"
 name = "Anytown Charity"
 ein = "XX-XXXXXXX"
 address = "PO Box 123456, Anytown, TX 12345"
-email = "info@anytowncharity.org"
-website = "www.anytowncharity.org"
+email = "info@example.org"
+website = "www.example.org"
 logo = "logo.png"
 signer = { name = "I. M. Treasurer", title = "Treasurer" }
 
@@ -55,7 +55,7 @@ year = 2025
 
 [email]
 name = "I. M. Treasurer"
-address = "treasurer@anytowncharity.org"
+address = "treasurer@example.org"
 
 # for testing, run a local debug server that prints instead of delivering:
 #   python -m pip install aiosmtpd && python -m aiosmtpd -n -l localhost:8025

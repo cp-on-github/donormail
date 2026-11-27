@@ -71,11 +71,11 @@ def test_email_content(workdir):
     path = workdir / "basic/output/annual/email/2025_Anytown_Charity_John_Appleseed.eml"
     message = read_email(path)
 
-    assert message["From"] == '"I. M. Treasurer" <treasurer@anytowncharity.org>'
-    assert message["To"] == "John Appleseed <bogus@email.com>"
+    assert message["From"] == '"I. M. Treasurer" <treasurer@example.org>'
+    assert message["To"] == "John Appleseed <john.appleseed@example.com>"
     assert message["Subject"] == "2025 Anytown Charity Contributions"
     assert message["Date"]
-    assert message["Message-ID"].endswith("@anytowncharity.org>")
+    assert message["Message-ID"].endswith("@example.org>")
 
     text = message.get_body(preferencelist=("plain",))
     html = message.get_body(preferencelist=("html",))
@@ -100,7 +100,7 @@ def test_names_are_escaped(workdir):
     """Names with html characters are escaped in html but not in text."""
 
     with (workdir / "basic/contacts.csv").open("a") as f:
-        f.write("Smith & <Sons>,sons@email.com,,,,,\n")
+        f.write("Smith & <Sons>,sons@example.com,,,,,\n")
     with (workdir / "basic/gifts.csv").open("a") as f:
         f.write("6/1/2025,40,Smith & <Sons>,Check,10,Food\n")
 
@@ -178,11 +178,11 @@ def test_send(workdir, sent):
 
     result = CliRunner().invoke(donormail, ["send", "basic/config.toml"])
     assert result.exit_code == 0, result.output
-    assert sent == ["John Appleseed <bogus@email.com>"]
+    assert sent == ["John Appleseed <john.appleseed@example.com>"]
     assert "Emails remaining:  1" in result.output
 
     result = CliRunner().invoke(donormail, ["send", "basic/config.toml"])
-    assert sent[-1] == "John Smith <bounce@email.com>"
+    assert sent[-1] == "John Smith <john.smith@example.com>"
     assert "Emails remaining:  0" in result.output
 
     sent = sorted(p.name for p in (workdir / "basic/output/annual/sent").iterdir())

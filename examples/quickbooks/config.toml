@@ -6,8 +6,8 @@ output = "output"
 name = "Anytown Charity"
 ein = "XX-XXXXXXX"
 address = "PO Box 123456, Anytown, TX 12345"
-email = "info@anytowncharity.org"
-website = "www.anytowncharity.org"
+email = "info@example.org"
+website = "www.example.org"
 logo = "logo.png"
 signer = { name = "I. M. Treasurer", title = "Treasurer" }
 
@@ -80,7 +80,7 @@ attach = false
 
 [email]
 name = "I. M. Treasurer"
-address = "treasurer@anytowncharity.org"
+address = "treasurer@example.org"
 
 [smtp]
 host = "localhost"

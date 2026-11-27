@@ -11,4 +11,4 @@
 | Cash | A donation | The full amount | Contributions |
 | Benefit | A $75 dinner ticket worth $45 | Amount paid less value received | Contributions with goods or services received |
 | In-kind | Donated laptops | Not stated | Non-cash contributions, described without a value |
-| Third-party | A donor-advised fund grant | None for the donor | A separate page marked as not a tax receipt |
+| Third-party | A donor-advised fund grant | None for the donor | A separate page that says it is not a tax receipt |

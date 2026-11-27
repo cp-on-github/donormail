@@ -4,14 +4,16 @@ How to record gifts in QuickBooks Online so donormail can acknowledge them, and 
 
 QuickBooks for nonprofits renames some things: customers are donors, invoices are pledges, and sales receipts are donations. This page uses the nonprofit names.
 
+QuickBooks is a trademark of Intuit Inc., and donormail is not affiliated with Intuit.
+
 ## How donormail reads QuickBooks
 
-donormail reads two reports:
+There are two reports to export:
 
 - a **gifts report**, with one row per line of each paid pledge or receipt
 - a **contacts report**, with each donor's email and mailing address
 
-QuickBooks writes nested names with a colon: a sub-donor is `Parent:Child`, a product in a category is `Category:Item`, and a sub-class is `Parent:Class`. donormail uses this to:
+QuickBooks writes nested names with a colon: a sub-donor is `Parent:Child`, a product in a category is `Category:Item`, and a sub-class is `Parent:Class`. These names are used to:
 
 - find third-party gifts by the parent donor name
 - show the last part of class and product names on letters
@@ -56,11 +58,11 @@ Letters show the program each gift supported, taken from the class. Nested class
 Both pledges (invoices) and receipts (sales receipts) work.
 
 - **Run the report on a cash basis.** A gift counts when it is paid, not when it is pledged. An unpaid pledge doesn't appear, and a paid pledge appears on the date of each payment.
-- **Partial payments are split across pledge lines.** QuickBooks divides a partial payment among the pledge's lines, which can give amounts like 107.74 and 107.75. donormail combines a donor's cash gifts by date, so the letter shows the payment as made.
+- **Partial payments are split across pledge lines.** QuickBooks divides a partial payment among the pledge's lines, which can give amounts like 107.74 and 107.75. Letters combine a donor's cash gifts by date, so they show the payment as made.
 
 ## Third-party gifts
 
-Gifts through a donor-advised fund, workplace giving platform, or bank are receipted by the third party, not by you. donormail thanks the donor for them on a separate page that says it is not a tax receipt.
+Gifts through a donor-advised fund, workplace giving platform, or bank are receipted by the third party, not by you. The letter thanks the donor for them on a separate page headed "Gifts through third parties (not a tax receipt)".
 
 Create a parent donor for each third party and add the donor under it, such as `NO RECEIPT Workplace Giving:Jane Doe`. Then tell donormail how to recognize the parents, using any marker text you like:
 

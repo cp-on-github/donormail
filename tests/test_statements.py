@@ -120,4 +120,4 @@ def test_build_statements(workdir):
     smith = statements[2]
     assert smith.total == Decimal("100.00")
     assert smith.contact is not None
-    assert smith.contact.email == "bounce@email.com"
+    assert smith.contact.email == "john.smith@example.com"

@@ -81,7 +81,7 @@ def test_aliases_and_duplicates(workdir):
     contacts, warnings = load_contacts(config)
 
     assert "Jane Smith" not in {gift.name for gift in gifts}
-    assert contacts["John Smith"].email == "bounce@email.com"
+    assert contacts["John Smith"].email == "john.smith@example.com"
     assert warnings == ["contacts line 5: Duplicate contact 'John Smith', skipped"]
 
 

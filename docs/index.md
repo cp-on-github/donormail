@@ -1,10 +1,10 @@
 # donormail
 
-Donation acknowledgement letters and emails for nonprofit organizations.
+Donation acknowledgement letters and emails for nonprofits.
 
-donormail reads donor contacts and gifts from CSV or Excel files, such as QuickBooks Online reports, and writes an acknowledgement for each donor: an email with a PDF letter attached, or a PDF to print and mail. You review everything before anything is sent.
+It reads contacts and gifts from CSV or Excel files, including QuickBooks Online reports. For each donor, it writes an email with a PDF letter, or a PDF to print and mail. Nothing is sent until you run `donormail send`.
 
-> donormail helps prepare acknowledgements but is not tax or legal advice. Review the default wording with your accountant before relying on it.
+> The default wording is written for 501(c)(3) organizations and is not tax or legal advice. Review it with your accountant before you use it.
 
 ## Guides
 
